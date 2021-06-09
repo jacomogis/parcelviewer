@@ -1,0 +1,567 @@
+﻿
+/*---------------------------------
+	Main elements
+-----------------------------------*/
+html, body {
+	height: 100%;
+}
+#mapDiv {
+	height: 100%;
+	z-index: 0;
+}
+
+/*---------------------------------------------------
+	Style for splash screen and help
+---------------------------------------------------*/
+/* this is the black background for the help and splash screens ... */
+.splashbackground {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	position: absolute;
+	opacity: 0.75;
+	z-index: 1;
+}
+
+/* this is the splash screen on regular media */
+@media only screen and (min-width: 900px) {
+	#splashscreen {
+		min-width: 50%;
+		max-width: 70%;
+		min-height: 60%;
+		max-height: 70%;
+		background-color: white;
+		position: relative;
+		top: 20%;
+		z-index: 2;
+		border: solid 10px white;
+		box-shadow: inset 0 0 27px 5px;
+		text-align: center;
+	}
+	#splash-content {
+		padding-left: 2%;
+		padding-right: 2%;
+		padding-top: 1%;
+	}
+}
+/* this is the splash screen on mobile media */
+@media only screen and (max-width: 900px) {
+	#splashscreen {
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		position: relative;
+		top: 0%;
+		z-index: 2;
+		border: solid 10px white;
+		box-shadow: inset 0 0 27px 5px;
+		text-align: center;
+		font-size: smaller;
+		overflow-x: auto;
+	}
+	#quickstartbutton {
+		display: none;
+	}
+	#browser-warning {
+		display: none;
+	}
+	#splash-content {
+		padding: 5%;
+	}
+	#disclaimer {
+		max-height: 225px;
+		border: ridge;
+		border-color: aliceblue;
+		overflow-x: auto;
+		padding: 10px;
+	}
+}
+
+/* this is the help screen and video on regular media */
+@media only screen and (min-width: 900px) {
+	/* LEAVE THIS ALONE IT'S NOT GOING TO GET BETTER!! */
+	#helpscreen {
+		padding-left: 3%;
+		padding-top: 2%;
+		min-width: 40%;
+		max-width: 60%;
+		min-height: 80%;
+		max-height: 90%;
+		background-color: white;
+		position: relative;
+		top: 10%;
+		z-index: 2;
+		border: solid 10px white;
+		box-shadow: inset 0 0 27px 5px;
+		text-align: center;
+	}
+	#helpimage {
+		height: 55%;
+	}
+	#helpVideo {
+		width: 100%;
+		height: 100%;
+		border: 5px solid white;
+	}
+	#videoDiv {
+		height: 70%;
+		width: 60%;
+		left: 20%;
+		top: 20%;
+		z-index: 4;
+		background-color: black;
+		position: absolute;
+	}
+	#videoClose {
+		position:absolute;
+		top:10vh;
+		right:10vw;
+	}
+}
+/* this is the help screen and video on mobile media */
+@media only screen and (max-width: 900px) {
+	#helpscreen {
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		position: relative;
+		top: 0%;
+		z-index: 2;
+		border: solid 10px white;
+		box-shadow: inset 0 0 27px 5px;
+		text-align: center;
+		font-size: smaller;
+	}
+	#helpimage {
+		width: 80%;
+		margin-left: 10%;
+		max-height: 60%;
+	}
+	#helpVideo {
+		width: 100%;
+		height: 100%;
+		border: 5px solid white;
+	}
+	#videoDiv {
+		height: 80%;
+		width: 80%;
+		left: 10%;
+		top: 15%;
+		z-index: 4;
+		background-color: black;
+		position: absolute;
+	}
+	#videoClose {
+		position:absolute;
+		top:2vh;
+		right:2vw;
+	}
+}
+/*---------------------------------------------------
+	End of style for splash screen and help
+---------------------------------------------------*/
+
+/*---------------------------------------------------
+	Style for parcel-click popup
+---------------------------------------------------*/
+/* Regular styling below - mobile didn't work unless I put regular into a min-width block */
+@media only screen and (min-width: 600px) {
+
+	/* main popup container */
+	.esri-popup__main-container {
+		position: fixed !important;
+		left: 5vw !important;
+		top: 15px;
+		min-width: 30%;
+		max-width: 70%;
+		max-height: 400px;
+		min-height: 330px;
+	}
+
+	/* container for zoom-to and click-for-info button */
+	.esri-popup__inline-actions-container > .esri-popup__action, .esri-popup__inline-actions-container > .esri-popup__action-toggle {
+		margin: 2px;
+		max-width: 100% !important;
+	}
+	/* click-to-get-info button */
+	.esri-popup__action:nth-child(1) {
+		background-color: #007bff;
+		border-radius: 5px;
+		min-width: 40%;
+		max-width: 50%;
+		color: white;
+		position: absolute !important;
+		left: 20%;
+		font-weight: bold;
+	}
+
+	/* for some stupid reason you have to do this to show the
+		caption on the button in mobile mode, but most phones held
+		sideways will be greater than 600px width so it needs to be here as well */
+	.esri-popup__action:nth-child(1):before {
+		content: "CLICK FOR PROPERTY INFO";
+		font-size: small;
+		padding: 5px;
+	}
+	/* When many mobile devices are turned sideways the "Zoom to" caption gets in the way
+		of the "click for property info" button, so this turns off that caption.
+		It is assumed the icon will make the purpose of the button self-evident */
+	.esri-popup__action-text{
+		display: none !important;
+	}
+	/* this is the container sans the parcel # and address info pane on larger screens */
+	.esri-view-width-xlarge .esri-popup__main-container {
+		width: 30%;
+	}
+}
+
+/* Mobile styling below */
+@media only screen and (max-width: 600px) {
+
+	/* main popup container */
+	.esri-popup__main-container {
+		position: absolute !important;
+		left: 5% !important;
+		top: 50% !important;
+		min-width: 70%;
+		max-width: 90%;
+		height: 50% !important;
+	}
+
+	/* container for zoom-to and click-for-info button */
+	.esri-popup__inline-actions-container > .esri-popup__action, .esri-popup__inline-actions-container > .esri-popup__action-toggle {
+		margin: 5px;
+		width: 100% !important;
+	}
+
+	/* click-to-get-info button */
+	.esri-popup__action:nth-child(1) {
+		background-color: #007bff;
+		border-radius: 5px;
+		left: 20% !important;
+		min-width: 60%;
+		max-width: 75%;
+		color: white;
+		position: absolute !important;
+		font-size: small;
+	}
+
+	/* for some stupid reason you have to do this to show the
+		caption on the button in mobile mode */
+	.esri-popup__action:nth-child(1):before {
+		content: "CLICK FOR PROPERTY INFO";
+		font-size: small;
+		padding: 5px;
+	}
+	/* This turns off the "Zoom to" caption for the zoom-to button.
+		It is assumed the icon will make the purpose of the button self-evident */
+	.esri-popup__action-text{
+		display: none !important;
+	}
+}
+/*---------------------------------------------------
+End of style for parcel-click popup
+---------------------------------------------------*/
+
+/*---------------------------------------------------
+Style for spinner on popup
+---------------------------------------------------*/
+#popupspinner {
+	display: none;
+	border: 8px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 8px solid gray;
+	width: 40px;
+	height: 40px;
+	-webkit-animation: spin 2s linear infinite;
+	-moz-animation: spin 2s linear infinite;
+	-o-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+@-moz-keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+/*---------------------------------------------------
+	End of style for spinner on popup
+---------------------------------------------------*/
+
+/*------------------------------------------------------------------------
+	The next several styles are for the bottom info tables container
+-------------------------------------------------------------------------*/
+#container-all {
+	margin: auto;
+	width: 98vw;
+	left: 1vw;
+	height: 50vh;
+	resize: vertical;
+	position: fixed !important;
+	top: auto !important;
+	bottom: 0 !important;
+	border: 2px solid silver;
+	display: none;
+	z-index: 10;
+}
+
+@media only screen and (max-width: 600px) {
+	#container-all {
+		margin: auto;
+		width: 100vw;
+		left: 0vw;
+		height: 70vh;
+		resize: vertical;
+		position: fixed !important;
+		top: auto !important;
+		bottom: 0% !important;
+		border: 2px solid silver;
+		display: none;
+		z-index: 10;
+	}
+}
+
+#container-topbar {
+	width: 100%;
+	height: 2%;
+	cursor: ns-resize;
+}
+
+#container-handle {
+	width: 99%;
+	height: 1.5%;
+	top: 0;
+	right: 2%;
+	background: linear-gradient( to bottom, gray, gray 50%, lightgray 50%, lightgray );
+	background-size: 100% 2px;
+	border: 1px solid gray;
+}
+
+#container-closebutton {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	cursor: pointer;
+}
+
+.nav-link {
+	background-color: #f2f2f2;
+	height: 45px;
+	margin-left: 3px;
+	margin-right: 3px;
+	cursor: pointer;
+}
+
+#basicvalueinfo, #ownership, #econdevel, #requests, #electedofficials, #printsave {
+	width: 98%;
+	height: 80%;
+	overflow: auto;
+	background-color: #DCE1F0;
+	box-shadow: black 8px 6px 13px -6px;
+}
+
+#photos {
+	cursor: pointer;
+	width: 98%;
+	height: 80%;
+	overflow: auto;
+	background-color: #DCE1F0;
+	box-shadow: black 8px 6px 13px -6px;
+}
+/*---------------------------------------------------
+End of style for info tables container
+---------------------------------------------------*/
+
+/*---------------------------------------------------
+Style for the modal photos
+---------------------------------------------------*/
+#theModal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.9);
+}
+
+#modalPhotos {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+}
+
+#caption {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
+}
+
+#modalPhotos, #caption {
+	-webkit-animation-name: zoom;
+	-webkit-animation-duration: 0.6s;
+	animation-name: zoom;
+	animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+	from {
+		-webkit-transform: scale(0)
+	}
+
+	to {
+		-webkit-transform: scale(1)
+	}
+}
+
+@keyframes zoom {
+	from {
+		transform: scale(0)
+	}
+
+	to {
+		transform: scale(1)
+	}
+}
+
+#modalClose {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+#modalClose:hover, #modalClose:focus {
+		color: #bbb;
+		text-decoration: none;
+		cursor: pointer;
+	}
+/*---------------------------------------------------
+	End of modal photos style
+---------------------------------------------------*/
+
+/*---------------------------------------------------
+	Style for widgets at top-right of map
+---------------------------------------------------*/
+/* Search widget for regular media */
+@media only screen and (min-width: 600px) {
+	.esri-input.esri-search__input {
+		font-weight: bold;
+		-webkit-text-fill-color: red;
+		width: 270px;
+	}
+	/* Next 2 are to nudge search widget over to the left since it's 
+		wider than the default width */
+	.esri-search__container {
+		right: 50px;
+	}
+	.esri-search__submit-button esri-widget--button {
+		right: 50px;
+	}
+}
+/* Search widget for mobile devices */
+@media only screen and (max-width: 600px) {
+	.esri-input.esri-search__input {
+		font-weight: bold;
+		font-size: small;
+		-webkit-text-fill-color: red;
+		width: 220px;
+	}
+	/* Next 2 are to nudge search widget over to the left since it's 
+		wider than the default width */
+	.esri-search__container {
+		right: 25px;
+	}
+	.esri-search__submit-button esri-widget--button {
+		right: 50px;
+	}
+}
+
+.esri-expand__panel .esri-widget--button {
+	width: 50px;
+	height: 50px;
+}
+
+.esri-widget__table tr th {
+	width: 25% !important;
+}
+
+.esri-icon-basemap {
+	font-size: 26px;
+}
+
+.esri-icon-measure {
+	font-size: 26px;
+}
+
+.esri-icon-printer {
+	font-size: 26px;
+}
+
+.esri-icon-layers {
+	font-size: 26px;
+}
+
+.esri-icon-question {
+	font-size: 26px;
+}
+
+.esri-icon-comment {
+	font-size: 26px;
+}
+
+#helpbutton {
+	width: 3.6em;
+	height: 3.6em;
+	cursor: pointer;
+}
+
+#questionsbutton {
+	width: 3.6em;
+	height: 3.6em;
+	cursor: pointer;
+}
+/*	-- the "topbar" is for the measure widget but trying to re-name it messes things up for some reason
+	-- action-button styles are also for the measure widget */
+#topbar {
+	background: #fff;
+	padding: 10px;
+}
+
+.action-button {
+	font-size: 26px;
+	background-color: transparent;
+	border: 1px solid #d3d3d3;
+	color: #6e6e6e;
+	height: 50px;
+	width: 50px;
+	text-align: center;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:hover, .action-button:focus {
+		background: #0079c1;
+		color: #e4e4e4;
+	}
